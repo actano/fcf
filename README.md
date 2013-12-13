@@ -44,3 +44,27 @@ output failure report in json format instead of the default text format
 failure cause knowledge base
 ============================
 
+rules are hard coded in the project. (TODO: rules should be defined in the project, not globally)
+
+rules defined in the coffee file lib/fcf-rules.coffee
+
+rules aŕe structured in categories. every category has one ore more groups.
+every group has a title and a list of regular expression pattern.
+every pattern is matched against every line of the command output.
+if a pattern matches a failure is detected.
+
+sample format of the fcf-rules file
+
+    module.exports =
+        test:
+            mocha_test:
+                title: 'mocha test failed'
+	            regexp: [
+	                /^not ok/
+	            ]
+            pre_test
+                title: 'sub system check failed'
+	            regexp: [
+	                /^webapp sub-system check fail/
+	            ]
+
