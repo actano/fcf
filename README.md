@@ -41,6 +41,12 @@ output failure report in json format instead of the default text format
 
     fcf -r json -c command command_args
 
+hint:
+fcf is defining the env var MOCHA_IGNORE_FAIL by default. that makes our mocha test run all,
+even if a mocha test fails. to prevent this behaviour you have to undefine the env var, for example like this:
+
+    MOCHA_IGNORE_FAIL= fcf -c lake test
+
 failure cause knowledge base
 ============================
 
