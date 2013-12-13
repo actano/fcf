@@ -60,7 +60,8 @@ main = (argv) ->
         console.error "unknown reporter! #{program.report}"
         return program.outputHelp()
 
-    logLive = beQuit = program.quiet
+    beQuit = program.quiet
+    logLive = program.quiet and program.report is 'text'
 
     spawnAndFilter command, comandArgs, (filterResult) ->
         if program.report is 'text'
