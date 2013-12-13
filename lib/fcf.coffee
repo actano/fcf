@@ -177,10 +177,11 @@ COLOR_OFF =  '\u001b[0m'
 lineMatchTemplate = (match) ->
     out = "-------------------------------------------------------------------------------\n"
     if match.preLines.length > 0
-        out += "#{COLOR_GRAY}#{match.preLines.join('\n')}#{COLOR_OFF}\n"
-    out += "#{COLOR_FAIL}#{match.category}:#{match.rule}: #{COLOR_OFF}#{COLOR_BRIGHT_FAIL}#{match.matchingLine}#{COLOR_OFF}\n"
+        out += colorIt(COLOR_GRAY, match.preLines.join('\n')) + "\n"
+    out += colorIt(COLOR_FAIL, "#{match.category}:#{match.rule}: ")
+    out += colorIt(COLOR_BRIGHT_FAIL, match.matchingLine) + "\n"
     if match.postLines.length > 0
-        out += "#{COLOR_GRAY}#{match.postLines.join('\n')}#{COLOR_OFF}\n"
+        out += colorIt(COLOR_GRAY, match.postLines.join('\n')) + "\n"
     return out
 
 failedSummaryTemplate = (matchSummary, exitCode) ->
@@ -190,18 +191,22 @@ failedSummaryTemplate = (matchSummary, exitCode) ->
 
     return """
         -------------------------------------------------------------------------------
-        #{COLOR_FAIL}build failed with exitcode #{exitCode}#{COLOR_OFF}
-        #{COLOR_FAIL}#{summary}#{COLOR_OFF}
+        #{colorIt(COLOR_FAIL, "build failed with exitcode #{exitCode}")}
+        #{colorIt(COLOR_FAIL, summary)}
         -------------------------------------------------------------------------------
     """
 
 successSummaryTemplate = ->
     return """
         -------------------------------------------------------------------------------
-        #{COLOR_OK}build success#{COLOR_OFF}
+        #{colorIt(COLOR_OK, "build success")}
         -------------------------------------------------------------------------------
     """
 
-
+colorIt = (colorCode, str) ->
+    if process.stdout.isTTY
+        "#{colorCode}#{str}#{COLOR_OFF}"
+    else
+        str
 
 
