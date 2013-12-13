@@ -2,14 +2,14 @@
   "name": "fcf",
   "version": "0.0.1",
   "description": "Failure Cause Management Filter",
-    "scripts": {
-        "prepublish": "cake build"
-    },
     "engines": {
         "node": ">=0.10.0"
     },
   "dependencies": {
-     "coffee-script": ">=1.6.2"
+     "coffee-script": ">=1.6.2",
+     "carrier": "~0.1.10",
+     "commander": "~1.1.1",
+     "underscore": "~1.4.4"
   },
   "repository": {
     "type": "git",
