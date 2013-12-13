@@ -66,11 +66,13 @@ main = (argv) ->
     beQuit = program.quiet
     logLive = program.quiet and program.report is 'text'
 
-    spawnAndFilter command, comandArgs, (filterResult) ->
+    spawnAndFilter command, comandArgs, (filterResult, exitCode, success) ->
         if program.report is 'text'
             console.error createReport(filterResult)
         else
             console.error JSON.stringify(filterResult)
+        if not success
+            process.exit if exitCode > 0 then exitCode else 1
 
 main(process.argv)
 
