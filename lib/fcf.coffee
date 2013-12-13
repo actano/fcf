@@ -5,7 +5,7 @@ carrier = require 'carrier'
 _ = require 'underscore'
 program = require 'commander'
 
-rules = require './fcf-rules'
+rules = require './fcf_rules'
 
 NR_OF_PRELINES = 5
 NR_OF_POSTLINES = 5
@@ -42,7 +42,10 @@ spawnAndFilter = (command, args, cb) ->
 
 parseCommandArgs = (option, argv) ->
     i = argv.indexOf(option)
-    return [argv[0...i], argv[(i+1)], argv[(i+2)..]]
+    if i isnt -1
+        return [argv[0...i], argv[(i+1)], argv[(i+2)..]]
+    else
+        return [argv]
 
 main = (argv) ->
     [args, command, comandArgs] = parseCommandArgs('-c', argv)
