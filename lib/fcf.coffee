@@ -5,7 +5,7 @@ carrier = require 'carrier'
 _ = require 'underscore'
 program = require 'commander'
 
-rules = require './build-out-filter-rules'
+rules = require './fcf-rules'
 
 NR_OF_PRELINES = 5
 NR_OF_POSTLINES = 5
