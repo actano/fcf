@@ -1,0 +1,29 @@
+{
+  "name": "fcf",
+  "version": "0.0.1",
+  "description": "Failure Cause Management Filter",
+    "scripts": {
+        "prepublish": "cake build"
+    },
+    "engines": {
+        "node": ">=0.10.0"
+    },
+  "dependencies": {
+     "coffee-script": ">=1.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pithu/fcf.git"
+  },
+  "keywords": [
+    "Failure Cause Management",
+    "stream filter"
+  ],
+  "author": "pithu <philipp.thuerwaechter@actano.de>",
+  "bugs": {
+    "url": "https://github.com/pithu/fcf/issues"
+  },
+    "bin": {
+        "fcf": "./bin/fcf"
+    }
+}
