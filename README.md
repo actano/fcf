@@ -74,3 +74,10 @@ sample format of the fcf-rules file
 	                /^webapp sub-system check fail/
 	            ]
 
+development
+============================
+
+how to release a new version
+
+	git tag -a v0.0.6 -m 'version 0.0.6'
+    git push origin v0.0.6
