@@ -175,7 +175,7 @@ COLOR_BRIGHT_FAIL = '\u001b[91m'
 COLOR_OFF =  '\u001b[0m'
 
 lineMatchTemplate = (match) ->
-    out = "-------------------------------------------------------------------------------\n"
+    out = "------- fcf report match -------------------------------------------------------------\n"
     if match.preLines.length > 0
         out += colorIt(COLOR_GRAY, match.preLines.join('\n')) + "\n"
     out += colorIt(COLOR_FAIL, "#{match.category}:#{match.rule}: ")
