@@ -40,5 +40,6 @@ module.exports =
                 /Timeout, server .* not responding/
                 /WSDL._parse/
                 /ERROR: expect one datacenter with pattern/
+                /profitbricks_bootstrap.ssh_controller.*Read-only file system/
             ]
 
