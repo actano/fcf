@@ -190,17 +190,17 @@ failedSummaryTemplate = (matchSummary, exitCode) ->
         summary += "#{key} failed #{nrOf} time(s). "
 
     return """
-        ------- fcf report start ------------------------------------------------------
+        ------- fcf report summary start ------------------------------------------------------
         #{colorIt(COLOR_FAIL, "build failed with exitcode #{exitCode}")}
         #{colorIt(COLOR_FAIL, summary)}
-        ------- fcf report end   ------------------------------------------------------
+        ------- fcf report summary end   ------------------------------------------------------
     """
 
 successSummaryTemplate = ->
     return """
-        ------- fcf report start ------------------------------------------------------
+        ------- fcf report summary start ------------------------------------------------------
         #{colorIt(COLOR_OK, "build success")}
-        ------- fcf report end   ------------------------------------------------------
+        ------- fcf report summary end   ------------------------------------------------------
     """
 
 colorIt = (colorCode, str) ->
