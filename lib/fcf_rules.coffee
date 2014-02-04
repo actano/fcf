@@ -30,6 +30,7 @@ module.exports =
                 /Error: socket hang up/
                 /fatal: The remote end hung up unexpectedly/
                 /npm ERR!.*git fetch/
+                /bootstrap.*Read-only file system/
             ]
 
         profitbricks:
