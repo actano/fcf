@@ -1,6 +1,6 @@
 {
   "name": "fcf",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "Failure Cause Management Filter",
     "engines": {
         "node": ">=0.10.0"
