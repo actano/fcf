@@ -1,3 +1,7 @@
+###
+    sample fcf rules config file
+###
+
 module.exports =
     test:
         mocha_test:
@@ -5,7 +9,7 @@ module.exports =
             nrOfPreLines: 0
             nrOfPostLines: 5
             regexp: [
-                /^mocha not ok.*/
+                /^not ok.*/
             ]
 
         pre_test:
@@ -31,16 +35,5 @@ module.exports =
                 /fatal: The remote end hung up unexpectedly/
                 /npm ERR!.*git fetch/
                 /bootstrap.*Read-only file system/
-            ]
-
-        profitbricks:
-            title: 'profitbricks failed'
-            nrOfPreLines: 2
-            nrOfPostLines: 2
-            regexp: [
-                /Timeout, server .* not responding/
-                /WSDL._parse/
-                /ERROR: expect one datacenter with pattern/
-                /Read-only file system/
             ]
 

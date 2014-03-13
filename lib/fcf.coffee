@@ -1,11 +1,11 @@
 #!/usr/bin/env coffee
-
+fs = require 'fs'
+path = require 'path'
 {spawn} = require 'child_process'
+
 carrier = require 'carrier'
 _ = require 'underscore'
 program = require 'commander'
-
-rules = require './fcf_rules'
 
 NR_OF_PRELINES = 5
 NR_OF_POSTLINES = 5
@@ -18,6 +18,21 @@ logLive = false
 spawnDefaultOptions =
     env:
         MOCHA_IGNORE_FAIL: true
+
+rules = null
+fcfRulesConfigFile = (baseDir, func) ->
+    configFileName = 'fcf-rules.coffee'
+    _fcfRulesConfigFile = (dir) ->
+        fn = path.join(dir, configFileName)
+        fs.exists fn, (exists) ->
+            if exists
+                return func fn
+            parent = path.normalize(path.join(dir, '..'))
+            if (parent isnt dir)
+                return _fcfRulesConfigFile(parent)
+
+            throw new Error("#{configFileName} not found in #{baseDir} and his parent directories");
+    _fcfRulesConfigFile(baseDir)
 
 filterLine = (line) ->
     return if not line?
@@ -46,35 +61,6 @@ parseCommandArgs = (option, argv) ->
         return [argv[0...i], argv[(i+1)], argv[(i+2)..]]
     else
         return [argv]
-
-main = (argv) ->
-    [args, command, comandArgs] = parseCommandArgs('-c', argv)
-
-    program
-        .option('-r, --report [type]', 'type of report json | text', 'text')
-        .option('-q, --quiet', 'do not log output to stdout', false)
-        .option('-c, --command <command [args...]>', 'command to execute')
-        .parse(args)
-
-    if not command?
-        return program.outputHelp()
-
-    if not  _(['json', 'text']).contains(program.report)
-        console.error "unknown reporter! #{program.report}"
-        return program.outputHelp()
-
-    beQuit = program.quiet
-    logLive = program.quiet and program.report is 'text'
-
-    spawnAndFilter command, comandArgs, (filterResult) ->
-        if program.report is 'text'
-            console.error createReport(filterResult)
-        else
-            console.error JSON.stringify(filterResult)
-        if not filterResult.success
-            process.exit if filterResult.exitCode > 0 then filterResult.exitCode else 1
-
-main(process.argv)
 
 
 logLine = (line) ->
@@ -209,4 +195,36 @@ colorIt = (colorCode, str) ->
     else
         str
 
+
+main = (argv) ->
+    [args, command, comandArgs] = parseCommandArgs('-c', argv)
+
+    program
+    .option('-r, --report [type]', 'type of report json | text', 'text')
+    .option('-q, --quiet', 'do not log output to stdout', false)
+    .option('-c, --command <command [args...]>', 'command to execute')
+    .parse(args)
+
+    if not command?
+        return program.outputHelp()
+
+    if not  _(['json', 'text']).contains(program.report)
+        console.error "unknown reporter! #{program.report}"
+        return program.outputHelp()
+
+    beQuit = program.quiet
+    logLive = program.quiet and program.report is 'text'
+
+    spawnAndFilter command, comandArgs, (filterResult) ->
+        if program.report is 'text'
+            console.error createReport(filterResult)
+        else
+            console.error JSON.stringify(filterResult)
+        if not filterResult.success
+            process.exit if filterResult.exitCode > 0 then filterResult.exitCode else 1
+
+
+fcfRulesConfigFile process.cwd(), (fcfRulesConfigFileName)->
+    rules = require(fcfRulesConfigFileName)
+    main(process.argv)
 
