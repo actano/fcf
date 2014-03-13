@@ -50,9 +50,10 @@ even if a mocha test fails. to prevent this behaviour you have to undefine the e
 failure cause knowledge base
 ============================
 
-rules are hard coded in the project. (TODO: rules should be defined in the project, not globally)
+rules are defined in a coffee file named fcf-rules.coffee containing a json configuration
 
-rules defined in the coffee file lib/fcf-rules.coffee
+the file is expected to exist in your project dir, more precisely
+in the execute directory (process.cwd()) or in one of it a parent directories
 
 rules aŕe structured in categories. every category has one ore more groups.
 every group has a title and a list of regular expression pattern.
