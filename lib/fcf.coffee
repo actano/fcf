@@ -36,7 +36,7 @@ fcfRulesConfigFile = (baseDir, func) ->
 
 filterLine = (line) ->
     return if not line?
-    cleanLine = line.replace(/\033\[[0-9;]*[a-zA-Z]{1}/g, '')
+    cleanLine = line.replace(/\u001b\[[0-9;]*[a-zA-Z]{1}/g, '')
     logLine(cleanLine)
     feedPostLines(cleanLine)
     matchLineWithAllPatterns(cleanLine)
